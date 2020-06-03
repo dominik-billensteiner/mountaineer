@@ -28,6 +28,8 @@ function App() {
     }
   };
 
+  getData("Schoberstein");
+
   return (
     <div className="App">
       <Tour
