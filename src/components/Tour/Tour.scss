@@ -23,6 +23,7 @@
 
   &__date,
   &__distance,
+  &__description,
   &__duration,
   &__elevation,
   &__ascent,
@@ -36,6 +37,10 @@
   &__descent {
     font-weight: 400;
     padding-top: 1rem;
+  }
+
+  &__description {
+    font-weight: 300;
   }
 
   &__date {
