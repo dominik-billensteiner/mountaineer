@@ -10,19 +10,28 @@ function App() {
   const getData = async (query) => {
     try {
       // Full text search (POIs and tours) on OutdoorActive API returns an id list
-      const apiRes = await fetch(
-        `http://www.outdooractive.com/api/search/?q=${query}&key=${apiKey}&project=${apiProject}`
+      const rawResponse = await fetch(
+        `http://www.outdooractive.com/api/search/?q=${query}&key=${apiKey}&project=${apiProject}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json; charset=utf-8",
+          },
+        }
       );
-
+      const display = await console.log(rawResponse);
       // Convert response to JSON
-      const res = await apiRes.json();
+      console.log(rawResponse);
+      const content = await rawResponse.json();
+      console.log(content);
 
       // Check request status
-      if (res.cod.toString() === "200") {
+      if (content.cod.toString() === "200") {
         // Successful request
         console.log("success");
-        console.log(res);
-      } else console.log(res);
+        console.log(content);
+      } else console.log(content);
     } catch (e) {
       console.error(e);
     }
