@@ -1,7 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
 import "./Tour.scss";
 
-const Tour = () => {
+const Tour = ({ mountain, date, distance, duration, ascent, descent }) => {
   return (
     <div className="tour">
       <div className="tour__container">
@@ -19,6 +20,15 @@ const Tour = () => {
       </div>
     </div>
   );
+};
+
+Tour.propTypes = {
+  mountain: PropTypes.string,
+  date: PropTypes.string,
+  distance: PropTypes.number,
+  duration: PropTypes.number,
+  ascent: PropTypes.number,
+  descent: PropTypes.number,
 };
 
 export default Tour;
