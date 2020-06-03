@@ -1,7 +1,33 @@
 import React from "react";
 import Tour from "../Tour/Tour";
 
+// Outdooractive API key (currently test-version)
+const apiKey = "yourtest-outdoora-ctiveapi";
+// Outdooractive API project (currently test-version)
+const apiProject = "api-dev-oa";
+
 function App() {
+  const getData = async (query) => {
+    try {
+      // Full text search (POIs and tours) on OutdoorActive API returns an id list
+      const apiRes = await fetch(
+        `http://www.outdooractive.com/api/search/?q=${query}&key=${apiKey}&project=${apiProject}`
+      );
+
+      // Convert response to JSON
+      const res = await apiRes.json();
+
+      // Check request status
+      if (res.cod.toString() === "200") {
+        // Successful request
+        console.log("success");
+        console.log(res);
+      } else console.log(res);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   return (
     <div className="App">
       <Tour
