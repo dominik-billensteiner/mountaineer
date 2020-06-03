@@ -1,3 +1,45 @@
 .tour {
   display: flex;
+  flex-direction: column;
+  background-color: #0080ff;
+  color: white;
+  padding: 1rem;
+  letter-spacing: 0.05rem;
+
+  &__container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  &__mountain-container {
+    display: block;
+  }
+
+  &__mountain {
+    font-size: 1.3em;
+    font-weight: 500;
+  }
+
+  &__date,
+  &__distance,
+  &__duration,
+  &__elevation,
+  &__ascent,
+  &__descent {
+    font-size: 1em;
+  }
+
+  &__distance,
+  &__duration,
+  &__ascent,
+  &__descent {
+    font-weight: 400;
+    padding-top: 1rem;
+  }
+
+  &__date {
+    padding-top: 0.1rem;
+    font-weight: 300;
+  }
 }
