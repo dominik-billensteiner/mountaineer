@@ -47,7 +47,7 @@ function App() {
         // Successful request
         console.log("success");
         console.log(data);
-      } else console.error(`Status!=200: ${rawResponse}`);
+      } else console.error(`Error status: ${rawResponse.status.toString()}`);
     } catch (e) {
       console.error(e);
     }
