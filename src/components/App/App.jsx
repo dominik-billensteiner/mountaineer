@@ -21,9 +21,14 @@ const API_CAT_MOUNTAINEERING = "8982359";
 const API_LANGUAGE = "de";
 
 function App() {
+  /**
+   * Gets list of tours from API.
+   *
+   * @param {string} query - Input search query for tour.
+   */
   const getData = async (query) => {
     try {
-      // Full text search (POIs and tours) on OutdoorActive API returns an id list
+      // Full text search (POIs and tours) on outdooractive API returns an id list
       const rawResponse = await fetch(
         `http://www.outdooractive.com/api/search/?q=${query}&category=${API_CAT_HIKING},${API_CAT_MOUNTAINEERING}&key=${API_KEY}&project=${API_PROJECT}&lang=${API_LANGUAGE}`,
         {
@@ -39,6 +44,7 @@ function App() {
         }
       );
 
+      // If promised is resolved, body of response holds retreived id list
       const idList = await rawResponse.json();
 
       // Check request status
@@ -68,6 +74,7 @@ function App() {
    */
   const getTourData = async (dataIDs) => {
     try {
+      // Gets set of attributes from outdooractive API for every ID in the Array
       const rawResponse = await fetch(
         `http://www.outdooractive.com/api/project/api-dev-oa/oois/${dataIDs}?key=yourtest-outdoora-ctiveapi&display=list`,
         {
