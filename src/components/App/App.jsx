@@ -53,6 +53,9 @@ function App() {
         idList.data.forEach((obj) => {
           dataIDs.push(obj.id);
         });
+
+        // Get attributes for retrieved tours
+        getTourData(dataIDs);
       } else console.error(`Error status: ${rawResponse.status.toString()}`);
     } catch (e) {
       console.error(e);
@@ -60,24 +63,32 @@ function App() {
   };
 
   /**
-   * Gets attributes for all content objects.
+   * Get attributes for all retrieved tours.
    * @param {Array} dataIDs - Array of IDs retreived via API request.
    */
   const getTourData = async (dataIDs) => {
-    const rawResponse = await fetch(
-      `http://www.outdooractive.com/api/project/api-dev-oa/oois/${dataIDs}?key=yourtest-outdoora-ctiveapi&display=list`,
-      {
-        method: "GET",
-        mode: "cors",
-        cache: "no-cache",
-        credentials: "same-origin",
-        headers: {
-          Accept: "application/json",
-        },
-        redirect: "follow",
-        referrerPolicy: "no-referrer",
-      }
-    );
+    try {
+      const rawResponse = await fetch(
+        `http://www.outdooractive.com/api/project/api-dev-oa/oois/${dataIDs}?key=yourtest-outdoora-ctiveapi&display=list`,
+        {
+          method: "GET",
+          mode: "cors",
+          cache: "no-cache",
+          credentials: "same-origin",
+          headers: {
+            Accept: "application/json",
+          },
+          redirect: "follow",
+          referrerPolicy: "no-referrer",
+        }
+      );
+
+      const tourData = await rawResponse.json();
+
+      console.log(tourData);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   getData("dachstein");
