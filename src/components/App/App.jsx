@@ -33,24 +33,51 @@ function App() {
           credentials: "same-origin",
           headers: {
             Accept: "application/json",
-            //"Content-Type": "application/json",
           },
           redirect: "follow",
           referrerPolicy: "no-referrer",
         }
       );
 
-      const data = await rawResponse.json();
+      const idList = await rawResponse.json();
 
       // Check request status
       if (rawResponse.status.toString() === "200") {
         // Successful request
         console.log("success");
-        console.log(data);
+
+        // Array of IDs retrieved via API request
+        let dataIDs = [];
+
+        // Push retrieved IDs
+        idList.data.forEach((obj) => {
+          dataIDs.push(obj.id);
+        });
       } else console.error(`Error status: ${rawResponse.status.toString()}`);
     } catch (e) {
       console.error(e);
     }
+  };
+
+  /**
+   * Gets attributes for all content objects.
+   * @param {Array} dataIDs - Array of IDs retreived via API request.
+   */
+  const getTourData = async (dataIDs) => {
+    const rawResponse = await fetch(
+      `http://www.outdooractive.com/api/project/api-dev-oa/oois/${dataIDs}?key=yourtest-outdoora-ctiveapi&display=list`,
+      {
+        method: "GET",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          Accept: "application/json",
+        },
+        redirect: "follow",
+        referrerPolicy: "no-referrer",
+      }
+    );
   };
 
   getData("dachstein");
