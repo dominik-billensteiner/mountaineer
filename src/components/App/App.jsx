@@ -1,43 +1,59 @@
 import React from "react";
 import Tour from "../Tour/Tour";
 
-// Outdooractive API key (currently test-version)
-const apiKey = "yourtest-outdoora-ctiveapi";
-// Outdooractive API project (currently test-version)
-const apiProject = "api-dev-oa";
+/* 
+API Request for Dachstein Mountain Tours (ID: 8982361)
+http://www.outdooractive.com/api/project/api-dev-oa/filter/tour?q=dachstein&category=8982361&key=yourtest-outdoora-ctiveapi
+
+Full Category List: http://www.outdooractive.com/api/project/api-dev-oa/category/tree?key=yourtest-outdoora-ctiveapi
+Hiking: 8982342
+Mountaineering: 8982359*/
+
+// Constants for outdooractive API data
+// API key (currently test-version)
+const API_KEY = "yourtest-outdoora-ctiveapi";
+// API project (currently test-version)
+const API_PROJECT = "api-dev-oa";
+// Catgory IDs
+const API_CAT_HIKING = "8982342";
+const API_CAT_MOUNTAINEERING = "8982359";
+// Language code
+const API_LANGUAGE = "de";
 
 function App() {
   const getData = async (query) => {
     try {
       // Full text search (POIs and tours) on OutdoorActive API returns an id list
       const rawResponse = await fetch(
-        `http://www.outdooractive.com/api/search/?q=${query}&key=${apiKey}&project=${apiProject}`,
+        `http://www.outdooractive.com/api/search/?q=${query}&category=${API_CAT_HIKING},${API_CAT_MOUNTAINEERING}&key=${API_KEY}&project=${API_PROJECT}&lang=${API_LANGUAGE}`,
         {
           method: "GET",
+          mode: "cors",
+          cache: "no-cache",
+          credentials: "same-origin",
           headers: {
             Accept: "application/json",
-            "Content-Type": "application/json; charset=utf-8",
+            //"Content-Type": "application/json",
           },
+          redirect: "follow",
+          referrerPolicy: "no-referrer",
         }
       );
-      const display = await console.log(rawResponse);
-      // Convert response to JSON
-      console.log(rawResponse);
-      const content = await rawResponse.json();
-      console.log(content);
+
+      const data = await rawResponse.json();
 
       // Check request status
-      if (content.cod.toString() === "200") {
+      if (rawResponse.status.toString() === "200") {
         // Successful request
         console.log("success");
-        console.log(content);
-      } else console.log(content);
+        console.log(data);
+      } else console.error(`Status!=200: ${rawResponse}`);
     } catch (e) {
       console.error(e);
     }
   };
 
-  getData("Schoberstein");
+  getData("dachstein");
 
   return (
     <div className="App">

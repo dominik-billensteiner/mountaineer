@@ -2,11 +2,11 @@ import React from "react";
 
 const TourForm = () => {
   return (
-    <>
-      <form>
-        <input></input>
-      </form>
-    </>
+    <div className="tourform">
+        <form>
+
+        </form>
+    </div>
   );
 };
 
