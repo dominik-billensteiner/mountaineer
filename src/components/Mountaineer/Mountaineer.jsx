@@ -1,5 +1,7 @@
 import React from "react";
 import Tour from "../Tour/Tour";
+import Bar from "../Bar/Bar";
+import "./style.scss";
 import { isCompositeComponentWithType } from "react-dom/test-utils";
 
 /* 
@@ -12,17 +14,22 @@ Mountaineering: 8982359*/
 
 function Mountaineer() {
   return (
-    <div className="App">
-      <Tour
-        mountain="Schoberstein"
-        elevation="1285"
-        date="29.04.2020"
-        description="Südanstieg Molln"
-        distance="9.1"
-        duration="3:15"
-        ascent="880"
-        descent="880"
-      />
+    <div className="app">
+      <div className="app__header">
+        <Bar />
+      </div>
+      <div className="app__content">
+        <Tour
+          mountain="Schoberstein"
+          elevation="1285"
+          date="29.04.2020"
+          description="Südanstieg Molln"
+          distance="9.1"
+          duration="3:15"
+          ascent="880"
+          descent="880"
+        />
+      </div>
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import { isCompositeComponentWithType } from "react-dom/test-utils";
 
 // Constants for outdooractive API data
 const API_KEY = "yourtest-outdoora-ctiveapi"; // API key (currently test-version)
@@ -15,7 +16,7 @@ const SearchBox = () => {
    */
   const getData = async (query) => {
     // Early return on empty query
-    if (query === null || query === undefined) return;
+    if (query === "" || query === null) return;
 
     try {
       // Full text search (POIs and tours) on outdooractive API returns an id list
@@ -88,11 +89,11 @@ const SearchBox = () => {
     }
   };
 
-  getData("dachstein");
+  getData("");
 
   return (
     <>
-      <div className="searchBox__wrapper">
+      <div className="searchbox__wrapper">
         <form className="searchBox">
           <input type="text" id="searchbox" placeholder="Tour hinzufügen ..." />
         </form>
