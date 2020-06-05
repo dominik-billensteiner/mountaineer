@@ -20,7 +20,7 @@ const SearchBox = () => {
    */
   const getData = async (query) => {
     // Early return on empty query
-    if (query === "" || query === null) return;
+    if (query === "" || query === null) throw new Error("QUERY EMPTY");
 
     try {
       // Full text search (POIs and tours) on outdooractive API returns an id list
@@ -59,7 +59,7 @@ const SearchBox = () => {
         getTourData(dataIDs);
       } else console.error(`Error status: ${rawResponse.status.toString()}`);
     } catch (e) {
-      console.error(e);
+      console.error(`ERROR ERROR: ${e}`);
     }
   };
 
@@ -93,7 +93,11 @@ const SearchBox = () => {
     }
   };
 
-  getData("");
+  const handleSearch = (e) => {
+    // prevent default
+    e.preventDefault();
+    getData(tourQuery);
+  };
 
   return (
     <>
@@ -109,8 +113,7 @@ const SearchBox = () => {
         <button
           className="searchbox__btn"
           onClick={(e) => {
-            console.log(tourQuery);
-            getData(tourQuery);
+            handleSearch(e);
           }}
         />
       </form>
