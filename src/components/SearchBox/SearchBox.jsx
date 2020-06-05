@@ -1,5 +1,12 @@
 import React from "react";
 
+// Constants for outdooractive API data
+const API_KEY = "yourtest-outdoora-ctiveapi"; // API key (currently test-version)
+const API_PROJECT = "api-dev-oa"; // API project (currently test-version)
+const API_CAT_HIKING = "8982342"; // Category ID for Hiking
+const API_CAT_MOUNTAINEERING = "8982359"; // Category ID for Mountaineering
+const API_LANGUAGE = "de"; // Language code
+
 const SearchBox = () => {
   /**
    * Gets list of tours from API.
@@ -7,6 +14,9 @@ const SearchBox = () => {
    * @param {string} query - Input search query for tour.
    */
   const getData = async (query) => {
+    // Early return on empty query
+    if (query === null || query === undefined) return;
+
     try {
       // Full text search (POIs and tours) on outdooractive API returns an id list
       const rawResponse = await fetch(
