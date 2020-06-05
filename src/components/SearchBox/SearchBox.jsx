@@ -80,7 +80,15 @@ const SearchBox = () => {
 
   getData("dachstein");
 
-  return <></>;
+  return (
+    <>
+      <div className="searchBox__wrapper">
+        <form className="searchBox">
+          <input type="text" id="searchbox" placeholder="Tour hinzufügen ..." />
+        </form>
+      </div>
+    </>
+  );
 };
 
 export default SearchBox;
