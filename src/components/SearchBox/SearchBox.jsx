@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import "./SearchBox.scss";
 import { isCompositeComponentWithType } from "react-dom/test-utils";
 
 // Constants for outdooractive API data
@@ -9,6 +10,9 @@ const API_CAT_MOUNTAINEERING = "8982359"; // Category ID for Mountaineering
 const API_LANGUAGE = "de"; // Language code
 
 const SearchBox = () => {
+  // Initialize State variables
+  const [tourQuery, setTourQuery] = useState("");
+
   /**
    * Gets list of tours from API.
    *
@@ -93,11 +97,23 @@ const SearchBox = () => {
 
   return (
     <>
-      <div className="searchbox__wrapper">
-        <form className="searchBox">
-          <input type="text" id="searchbox" placeholder="Tour hinzufügen ..." />
-        </form>
-      </div>
+      <form>
+        <input
+          className="searchbox text"
+          type="text"
+          id="searchbox"
+          value={tourQuery}
+          placeholder="Tour hinzufügen ..."
+          onChange={(e) => setTourQuery(e.target.value)}
+        />
+        <button
+          className="searchbox__btn"
+          onClick={(e) => {
+            console.log(tourQuery);
+            getData(tourQuery);
+          }}
+        />
+      </form>
     </>
   );
 };

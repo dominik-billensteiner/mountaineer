@@ -1,0 +1,10 @@
+@import "../Mountaineer/shared.scss";
+
+.searchbox {
+  border: 2px solid $primary-color;
+  border-radius: 16px;
+  width: 70vw;
+  height: 2rem;
+  z-index: 101;
+  padding: 2px 12px;
+}

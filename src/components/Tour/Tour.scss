@@ -1,7 +1,9 @@
+@import "../Mountaineer/shared.scss";
+
 .tour {
   display: flex;
   flex-direction: column;
-  background-color: #0080ff;
+  background-color: $primary-color-rgba;
   color: white;
   padding: 1rem;
   letter-spacing: 0.05rem;

@@ -1,21 +1,30 @@
+@import "./shared.scss";
+
 * {
   padding: 0;
   margin: 0;
-  pointer-events: none;
 }
 
 .app__header {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   width: 100%;
-  height: 50px;
-  padding: 1rem;
+  height: $header-height;
+  z-index: 100;
 }
 
 .app__content {
   position: relative;
   display: block;
-  margin-top: 50px;
+  margin-top: $header-height;
+}
+
+.text {
+  font-family: "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 300;
+  font-size: 1em;
 }

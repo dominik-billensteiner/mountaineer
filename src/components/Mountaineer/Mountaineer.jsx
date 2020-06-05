@@ -4,14 +4,6 @@ import Bar from "../Bar/Bar";
 import "./style.scss";
 import { isCompositeComponentWithType } from "react-dom/test-utils";
 
-/* 
-API Request for Dachstein Mountain Tours (ID: 8982361)
-http://www.outdooractive.com/api/project/api-dev-oa/filter/tour?q=dachstein&category=8982361&key=yourtest-outdoora-ctiveapi
-
-Full Category List: http://www.outdooractive.com/api/project/api-dev-oa/category/tree?key=yourtest-outdoora-ctiveapi
-Hiking: 8982342
-Mountaineering: 8982359*/
-
 function Mountaineer() {
   return (
     <div className="app">
