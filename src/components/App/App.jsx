@@ -1,5 +1,6 @@
 import React from "react";
 import Tour from "../Tour/Tour";
+import { isCompositeComponentWithType } from "react-dom/test-utils";
 
 /* 
 API Request for Dachstein Mountain Tours (ID: 8982361)
