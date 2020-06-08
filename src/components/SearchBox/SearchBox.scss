@@ -23,12 +23,21 @@
     border-bottom: 2px solid $primary-color;
     border-radius: 0 0 8px 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 -1px 0px rgba(0, 0, 0, 0.02);
-    padding: 2px $searchbox-padding;
+    padding: 8px 0;
     background-color: white;
     z-index: 999;
+    height: 80vh;
+    overflow-y: scroll;
+    cursor: pointer;
   }
 
+  &__item-wrapper {
+    &:hover .searchbox__item {
+      background-color: $primary-color;
+      color: white;
+    }
+  }
   &__item {
-    padding: 6px 0;
+    padding: 8px $searchbox-padding;
   }
 }

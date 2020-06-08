@@ -9,6 +9,10 @@ const API_CAT_HIKING = "8982342"; // Category ID for Hiking
 const API_CAT_MOUNTAINEERING = "8982359"; // Category ID for Mountaineering
 const API_LANGUAGE = "de"; // Language code
 
+/***
+ * Displays a searchbox to search for tours registered in the API.
+ * Searchresults are displayed in a dropdown list, on selection of a item the add tour display is shown.
+ */
 const SearchBox = () => {
   // Search query to add a tour (Userinput)
   const [tourQuery, setTourQuery] = useState("");
@@ -25,9 +29,9 @@ const SearchBox = () => {
   /**
    * Gets list of tours from API.
    *
-   * @param {string} query - Input search query for tour.
+   * @param {string} query - Search query for tour (user input).
    */
-  const getData = async (query) => {
+  const getTourList = async (query) => {
     // Early return on empty query
     if (query === "" || query === null) throw new Error("QUERY EMPTY");
 
@@ -108,7 +112,7 @@ const SearchBox = () => {
   const handleSearch = (e) => {
     // prevent default
     e.preventDefault();
-    getData(tourQuery);
+    getTourList(tourQuery);
   };
 
   const selectTour = (e) => {
@@ -137,13 +141,15 @@ const SearchBox = () => {
         <div className="searchbox__results">
           {searchResults.map((result) => {
             return (
-              <div
-                className="searchbox__item"
-                onClick={(e) => {
-                  selectTour(e);
-                }}
-              >
-                <span>{result.title}</span>
+              <div className="searchbox__item-wrapper">
+                <div
+                  className="searchbox__item"
+                  onClick={(e) => {
+                    selectTour(e);
+                  }}
+                >
+                  <span>{result.title}</span>
+                </div>
               </div>
             );
           })}
