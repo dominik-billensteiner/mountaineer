@@ -158,7 +158,14 @@ const SearchBox = () => {
           onChange={(e) => setTourQuery(e.target.value)}
         />
         <div className="searchbox__clear-btn">
-          <span onClick={(e) => {}}>X</span>
+          <span
+            onClick={(e) => {
+              setTourQuery("");
+              setCommittedSearch(false);
+            }}
+          >
+            X
+          </span>
         </div>
         <button
           className="searchbox__btn"
@@ -170,6 +177,7 @@ const SearchBox = () => {
       {committedSearch ? (
         <div className="searchbox__results">
           {isEmptyArray(searchResults) ? (
+            // No search results have been found
             <div className="searchbox__item-wrapper">
               <div
                 className="searchbox__item"
@@ -181,6 +189,7 @@ const SearchBox = () => {
               </div>
             </div>
           ) : (
+            // Display list of search results
             searchResults.map((result) => {
               return (
                 <div className="searchbox__item-wrapper">
