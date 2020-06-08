@@ -3,6 +3,8 @@
 * {
   padding: 0;
   margin: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .app__header {
@@ -13,6 +15,7 @@
   width: 100%;
   height: $header-height;
   z-index: 100;
+  padding: 16px 16px;
 }
 
 .app__content {

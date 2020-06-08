@@ -11,7 +11,8 @@ const API_LANGUAGE = "de"; // Language code
 
 const SearchBox = () => {
   // Initialize State variables
-  const [tourQuery, setTourQuery] = useState("");
+  const [tourQuery, setTourQuery] = useState(""); // User input for added tour
+  const [awaitingTourSelection, setAwaitingTourSelection] = useState(false);
 
   /**
    * Gets list of tours from API.
@@ -96,7 +97,12 @@ const SearchBox = () => {
   const handleSearch = (e) => {
     // prevent default
     e.preventDefault();
-    getData(tourQuery);
+    //getData(tourQuery);
+    setAwaitingTourSelection(true);
+  };
+
+  const selectTour = (e) => {
+    setAwaitingTourSelection(false);
   };
 
   return (
@@ -117,6 +123,18 @@ const SearchBox = () => {
           }}
         />
       </form>
+      {awaitingTourSelection ? (
+        <div className="searchbox__results">
+          <div
+            className="searchbox__item"
+            onClick={(e) => {
+              selectTour(e);
+            }}
+          >
+            Schoberstein
+          </div>
+        </div>
+      ) : null}
     </>
   );
 };

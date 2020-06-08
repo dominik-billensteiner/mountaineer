@@ -1,9 +1,12 @@
 /* Shared variables */
 
 // General components
-$header-height: 90px;
+$header-height: 125px;
 
 // Colors
-$primary-color: rgb(0, 128, 255);
+$primary-color: rgb(166, 179, 57); // Hex A6B339; davor rgb(0, 128, 255);
 $primary-color-alpha: 0.8;
 $primary-color-rgba: rgba($primary-color, $primary-color-alpha);
+
+// Searchbox
+$searchbox-padding: 12px;

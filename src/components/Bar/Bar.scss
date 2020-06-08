@@ -1,9 +1,6 @@
 .bar {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  display: block;
   position: relative;
-  padding: 0 16px;
   height: 100%;
+  width: 100%;
 }
