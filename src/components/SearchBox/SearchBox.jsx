@@ -10,10 +10,17 @@ const API_CAT_MOUNTAINEERING = "8982359"; // Category ID for Mountaineering
 const API_LANGUAGE = "de"; // Language code
 
 const SearchBox = () => {
-  // Initialize State variables
-  const [tourQuery, setTourQuery] = useState(""); // User input for added tour
-  const [awaitingTourSelection, setAwaitingTourSelection] = useState(false);
+  // Search query to add a tour (Userinput)
+  const [tourQuery, setTourQuery] = useState("");
+
+  // Search results to display a suggestions for the user input
   const [searchResults, setSearchResults] = useState([]);
+
+  // Awaiting a tour selection by the user, true if user committed a search
+  const [committedSearch, setCommittedSearch] = useState(false);
+
+  // Loading is enabled, when data is beeing fechted from API
+  const [loading, setLoading] = useState(false);
 
   /**
    * Gets list of tours from API.
@@ -91,7 +98,7 @@ const SearchBox = () => {
 
       if (rawResponse.status.toString() === "200") {
         setSearchResults(data.tour);
-        setAwaitingTourSelection(true);
+        setCommittedSearch(true);
       }
     } catch (e) {
       console.log(e);
@@ -105,7 +112,7 @@ const SearchBox = () => {
   };
 
   const selectTour = (e) => {
-    setAwaitingTourSelection(false);
+    setCommittedSearch(false);
   };
 
   return (
@@ -126,7 +133,7 @@ const SearchBox = () => {
           }}
         />
       </form>
-      {awaitingTourSelection ? (
+      {committedSearch ? (
         <div className="searchbox__results">
           {searchResults.map((result) => {
             return (
