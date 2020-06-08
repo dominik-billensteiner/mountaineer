@@ -1,7 +1,9 @@
 @import "../Mountaineer/shared.scss";
 
 .searchbox {
-  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   border: 2px solid $primary-color;
   border-radius: 8px;
   width: 100%;
@@ -10,8 +12,23 @@
   padding: 8px $searchbox-padding;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 -1px 0px rgba(0, 0, 0, 0.02);
 
+  &__input {
+    position: relative;
+    border: none;
+  }
+
+  &__clear-btn {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    font-size: 1.2em;
+    color: $grey-color;
+    cursor: pointer;
+  }
+
   &__btn {
     visibility: hidden;
+    width: 1px;
   }
 
   &__results {

@@ -52,7 +52,7 @@ const SearchBox = () => {
         }
       );
 
-      // If promised is resolved, body of response holds retreived id list
+      // If promised is resolved, body of response contains retreived id list
       const idList = await rawResponse.json();
 
       // Check request status
@@ -98,14 +98,26 @@ const SearchBox = () => {
         }
       );
 
+      // If promised is resolved, body of response contains tours with all attributes
       const data = await rawResponse.json();
 
+      // Proceed if response was successfull
       if (rawResponse.status.toString() === "200") {
+        // Assign tour data (located in a subarray called "tour") to state variable searchResults
         setSearchResults(data.tour);
+        // Search has been committed
         setCommittedSearch(true);
+      } else {
+        // Throw error if request was not successfull
+        throw Error(
+          `[getTourData] Error fetching tour data from API: Status ${rawResponse.status.toString()}`
+        );
       }
     } catch (e) {
-      console.log(e);
+      // Throw error if any error occured
+      throw Error(
+        `[getTourData] Error fetching tour data from API: Status ${e}`
+      );
     }
   };
 
@@ -121,15 +133,18 @@ const SearchBox = () => {
 
   return (
     <>
-      <form>
+      <form className="searchbox">
         <input
-          className="searchbox text"
+          className="searchbox__input text"
           type="text"
           id="searchbox"
           value={tourQuery}
           placeholder="Tour hinzufügen ..."
           onChange={(e) => setTourQuery(e.target.value)}
         />
+        <div className="searchbox__clear-btn">
+          <span onClick={(e) => {}}>X</span>
+        </div>
         <button
           className="searchbox__btn"
           onClick={(e) => {
