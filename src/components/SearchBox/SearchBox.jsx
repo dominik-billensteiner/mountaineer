@@ -33,7 +33,9 @@ const SearchBox = () => {
    */
   const getTourList = async (query) => {
     // Early return on empty query
-    if (query === "" || query === null) throw new Error("QUERY EMPTY");
+    if (query === "" || query === null) {
+      return;
+    }
 
     try {
       // Full text search (POIs and tours) on outdooractive API returns an id list
@@ -54,6 +56,9 @@ const SearchBox = () => {
 
       // If promised is resolved, body of response contains retreived id list
       const idList = await rawResponse.json();
+
+      // Return if no search results have been found
+      if (isEmptyArray(idList.data)) return;
 
       // Check request status
       if (rawResponse.status.toString() === "200") {
@@ -109,13 +114,13 @@ const SearchBox = () => {
         setCommittedSearch(true);
       } else {
         // Throw error if request was not successfull
-        throw Error(
+        console.error(
           `[getTourData] Error fetching tour data from API: Status ${rawResponse.status.toString()}`
         );
       }
     } catch (e) {
       // Throw error if any error occured
-      throw Error(
+      console.error(
         `[getTourData] Error fetching tour data from API: Status ${e}`
       );
     }
@@ -129,6 +134,16 @@ const SearchBox = () => {
 
   const selectTour = (e) => {
     setCommittedSearch(false);
+  };
+
+  /***
+   * Check if given array is empty.
+   * @return {Boolean} - Returns true if empty.
+   */
+  const isEmptyArray = (arr) => {
+    if (!Array.isArray(arr)) {
+      return true;
+    }
   };
 
   return (
@@ -154,20 +169,34 @@ const SearchBox = () => {
       </form>
       {committedSearch ? (
         <div className="searchbox__results">
-          {searchResults.map((result) => {
-            return (
-              <div className="searchbox__item-wrapper">
-                <div
-                  className="searchbox__item"
-                  onClick={(e) => {
-                    selectTour(e);
-                  }}
-                >
-                  <span>{result.title}</span>
-                </div>
+          {isEmptyArray(searchResults) ? (
+            <div className="searchbox__item-wrapper">
+              <div
+                className="searchbox__item"
+                onClick={(e) => {
+                  selectTour(e);
+                }}
+              >
+                <span>Keine Ergebnisse gefunden.</span>
               </div>
-            );
-          })}
+            </div>
+          ) : (
+            searchResults.map((result) => {
+              return (
+                <div className="searchbox__item-wrapper">
+                  <div
+                    className="searchbox__item"
+                    onClick={(e) => {
+                      selectTour(e);
+                    }}
+                  >
+                    <span key={result.id}>{result.title}</span>
+                  </div>
+                </div>
+              );
+            })
+          )}
+          )
         </div>
       ) : null}
     </>
