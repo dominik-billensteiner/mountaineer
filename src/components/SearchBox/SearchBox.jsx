@@ -13,6 +13,7 @@ const SearchBox = () => {
   // Initialize State variables
   const [tourQuery, setTourQuery] = useState(""); // User input for added tour
   const [awaitingTourSelection, setAwaitingTourSelection] = useState(false);
+  const [searchResults, setSearchResults] = useState([]);
 
   /**
    * Gets list of tours from API.
@@ -86,9 +87,12 @@ const SearchBox = () => {
         }
       );
 
-      const tourData = await rawResponse.json();
+      const data = await rawResponse.json();
 
-      console.log(tourData);
+      if (rawResponse.status.toString() === "200") {
+        setSearchResults(data.tour);
+        setAwaitingTourSelection(true);
+      }
     } catch (e) {
       console.log(e);
     }
@@ -97,8 +101,7 @@ const SearchBox = () => {
   const handleSearch = (e) => {
     // prevent default
     e.preventDefault();
-    //getData(tourQuery);
-    setAwaitingTourSelection(true);
+    getData(tourQuery);
   };
 
   const selectTour = (e) => {
@@ -125,14 +128,18 @@ const SearchBox = () => {
       </form>
       {awaitingTourSelection ? (
         <div className="searchbox__results">
-          <div
-            className="searchbox__item"
-            onClick={(e) => {
-              selectTour(e);
-            }}
-          >
-            Schoberstein
-          </div>
+          {searchResults.map((result) => {
+            return (
+              <div
+                className="searchbox__item"
+                onClick={(e) => {
+                  selectTour(e);
+                }}
+              >
+                <span>{result.title}</span>
+              </div>
+            );
+          })}
         </div>
       ) : null}
     </>
