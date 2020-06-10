@@ -49,13 +49,10 @@
   }
 
   &__item-wrapper {
-    &:hover .searchbox__item {
+    &:hover .item {
       background-color: $primary-color;
       color: white;
     }
-  }
-  &__item {
-    padding: 8px $searchbox-padding;
   }
 
   &__spinner {
@@ -96,5 +93,22 @@
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+.item {
+  display: block;
+  padding: 12px $searchbox-padding;
+  border-bottom: 1px $primary-color solid;
+
+  &__title {
+  }
+  &__description-container {
+    display: flex;
+    flex-direction: row;
+    padding-top: 8px;
+  }
+  &__description {
+    flex: 0 0 20%;
   }
 }

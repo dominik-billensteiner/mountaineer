@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import "./SearchBox.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faSearch,
+  faTrashAlt,
+  faArrowsAltH,
+  faSortUp,
+  faSortDown,
+} from "@fortawesome/free-solid-svg-icons";
 
 // Constants for outdooractive API data
 const API_KEY = "yourtest-outdoora-ctiveapi"; // API key (currently test-version)
@@ -119,6 +125,7 @@ const SearchBox = () => {
 
       // Proceed if response was successfull
       if (rawResponse.status.toString() === "200") {
+        console.log(data.tour);
         // Assign tour data (located in a subarray called "tour") to state variable searchResults
         setSearchResults(data.tour);
       } else {
@@ -237,12 +244,26 @@ const SearchBox = () => {
               return (
                 <div key={result.id} className="searchbox__item-wrapper">
                   <div
-                    className="searchbox__item"
+                    className="item"
                     onClick={(e) => {
                       handleTourSelection(e);
                     }}
                   >
-                    <span>{result.title}</span>
+                    <p className="item__title">{result.title}</p>
+                    <span className="item__description-container">
+                      <div className="item__description">
+                        <FontAwesomeIcon icon={faArrowsAltH} />
+                        <span> {result.length} km</span>
+                      </div>
+                      <div className="item__description">
+                        <FontAwesomeIcon icon={faSortUp} />
+                        <span> {result.elevation.ascent} hm</span>
+                      </div>
+                      <div className="item__description">
+                        <FontAwesomeIcon icon={faSortDown} />
+                        <span> {result.elevation.descent} hm</span>
+                      </div>
+                    </span>
                   </div>
                 </div>
               );
