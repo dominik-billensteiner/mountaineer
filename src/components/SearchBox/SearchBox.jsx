@@ -166,6 +166,14 @@ const SearchBox = () => {
   };
 
   /***
+   * Round to specified decimal.
+   */
+  const round = (value, precision) => {
+    let multiplier = Math.pow(10, precision || 0);
+    return Math.round(value * multiplier) / multiplier;
+  };
+
+  /***
    * Check if given array is empty.
    * @return {Boolean} - Returns true if empty.
    */
@@ -253,7 +261,11 @@ const SearchBox = () => {
                     <span className="item__description-container">
                       <div className="item__description">
                         <FontAwesomeIcon icon={faArrowsAltH} />
-                        <span> {result.length} km</span>
+                        <span> {round(result.length / 1000, 1)} km</span>
+                      </div>
+                      <div className="item__description">
+                        <FontAwesomeIcon icon={faSortUp} />
+                        <span> {round(result.time.min / 60, 2)} h</span>
                       </div>
                       <div className="item__description">
                         <FontAwesomeIcon icon={faSortUp} />

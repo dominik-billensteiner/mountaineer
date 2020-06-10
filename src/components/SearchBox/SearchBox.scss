@@ -98,8 +98,9 @@
 
 .item {
   display: block;
-  padding: 12px $searchbox-padding;
+  padding: 16px $searchbox-padding;
   border-bottom: 1px $primary-color solid;
+  overflow: hidden;
 
   &__title {
   }
@@ -109,6 +110,7 @@
     padding-top: 8px;
   }
   &__description {
-    flex: 0 0 20%;
+    flex: 0 0 25%;
+    font-size: 0.9rem;
   }
 }
