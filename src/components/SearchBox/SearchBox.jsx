@@ -10,8 +10,9 @@ const API_CAT_MOUNTAINEERING = "8982359"; // Category ID for Mountaineering
 const API_LANGUAGE = "de"; // Language code
 
 /***
- * Displays a searchbox to search for tours registered in the API.
- * Searchresults are displayed in a dropdown list, on selection of a item the add tour display is shown.
+ * Enables searching for tours registered in the API.
+ * Search results are entered in a searchbox and displayed in a dropdown list.
+ * On selection of a item the add tour display is shown.
  */
 const SearchBox = () => {
   // Search query to add a tour (Userinput)
@@ -36,6 +37,15 @@ const SearchBox = () => {
     if (query === "" || query === null) {
       return;
     }
+
+    // Reset search results
+    setSearchResults("");
+
+    // Set loading state
+    setLoading(true);
+
+    // Search has been committed
+    setCommittedSearch(true);
 
     try {
       // Full text search (POIs and tours) on outdooractive API returns an id list
@@ -110,8 +120,6 @@ const SearchBox = () => {
       if (rawResponse.status.toString() === "200") {
         // Assign tour data (located in a subarray called "tour") to state variable searchResults
         setSearchResults(data.tour);
-        // Search has been committed
-        setCommittedSearch(true);
       } else {
         // Throw error if request was not successfull
         console.error(
@@ -126,13 +134,24 @@ const SearchBox = () => {
     }
   };
 
+  /***
+   * Handles search request.
+   */
   const handleSearch = (e) => {
-    // prevent default
+    // Prevent default
     e.preventDefault();
+
+    // Get list of search results
     getTourList(tourQuery);
+
+    // Unset loading state
+    setLoading(false);
   };
 
-  const selectTour = (e) => {
+  /***
+   * Handles tour selection.
+   */
+  const handleTourSelection = (e) => {
     setCommittedSearch(false);
   };
 
@@ -174,7 +193,23 @@ const SearchBox = () => {
           }}
         />
       </form>
-      {committedSearch ? (
+      {committedSearch && loading ? (
+        // Search committed, but API still loading - display loading spinner
+        <div className="searchbox__results">
+          <div className="searchbox__item-wrapper">
+            <div className="searchbox__item">
+              <div className="lds-ring">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
+      {committedSearch && !loading ? (
+        // Search committed, loading finished
         <div className="searchbox__results">
           {isEmptyArray(searchResults) ? (
             // No search results have been found
@@ -182,7 +217,7 @@ const SearchBox = () => {
               <div
                 className="searchbox__item"
                 onClick={(e) => {
-                  selectTour(e);
+                  handleTourSelection(e);
                 }}
               >
                 <span>Keine Ergebnisse gefunden.</span>
@@ -192,20 +227,19 @@ const SearchBox = () => {
             // Display list of search results
             searchResults.map((result) => {
               return (
-                <div className="searchbox__item-wrapper">
+                <div key={result.id} className="searchbox__item-wrapper">
                   <div
                     className="searchbox__item"
                     onClick={(e) => {
-                      selectTour(e);
+                      handleTourSelection(e);
                     }}
                   >
-                    <span key={result.id}>{result.title}</span>
+                    <span>{result.title}</span>
                   </div>
                 </div>
               );
             })
           )}
-          )
         </div>
       ) : null}
     </>
