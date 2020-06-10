@@ -44,9 +44,6 @@ const SearchBox = () => {
     // Set loading state
     setLoading(true);
 
-    // Search has been committed
-    setCommittedSearch(true);
-
     try {
       // Full text search (POIs and tours) on outdooractive API returns an id list
       const rawResponse = await fetch(
@@ -68,7 +65,10 @@ const SearchBox = () => {
       const idList = await rawResponse.json();
 
       // Return if no search results have been found
-      if (isEmptyArray(idList.data)) return;
+      if (isEmptyArray(idList.data)) {
+        setLoading(false);
+        return;
+      }
 
       // Check request status
       if (rawResponse.status.toString() === "200") {
@@ -116,9 +116,6 @@ const SearchBox = () => {
       // If promised is resolved, body of response contains tours with all attributes
       const data = await rawResponse.json();
 
-      // Unset loading state
-      setLoading(false);
-
       // Proceed if response was successfull
       if (rawResponse.status.toString() === "200") {
         // Assign tour data (located in a subarray called "tour") to state variable searchResults
@@ -135,6 +132,8 @@ const SearchBox = () => {
         `[getTourData] Error fetching tour data from API: Status ${e}`
       );
     }
+    // Unset loading state
+    setLoading(false);
   };
 
   /***
@@ -143,6 +142,9 @@ const SearchBox = () => {
   const handleSearch = (e) => {
     // Prevent default
     e.preventDefault();
+
+    // Search has been committed
+    setCommittedSearch(true);
 
     // Get list of search results
     getTourList(tourQuery);
@@ -196,15 +198,11 @@ const SearchBox = () => {
       {committedSearch && loading ? (
         // Search committed, but API still loading - display loading spinner
         <div className="searchbox__results">
-          <div className="searchbox__item-wrapper">
-            <div className="searchbox__item">
-              <div className="searchbox__spinner">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
-            </div>
+          <div className="searchbox__spinner">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
           </div>
         </div>
       ) : null}
