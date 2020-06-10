@@ -2,7 +2,12 @@ import React from "react";
 import Tour from "../Tour/Tour";
 import Bar from "../Bar/Bar";
 import "./style.scss";
-import { isCompositeComponentWithType } from "react-dom/test-utils";
+
+// Import font awesome icons
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+import { faSearch, faTrash } from "@fortawesome/free-solid-svg-icons";
+library.add(fab, faSearch, faTrash);
 
 function Mountaineer() {
   return (

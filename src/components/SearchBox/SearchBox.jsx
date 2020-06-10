@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./SearchBox.scss";
-import { isCompositeComponentWithType } from "react-dom/test-utils";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 // Constants for outdooractive API data
 const API_KEY = "yourtest-outdoora-ctiveapi"; // API key (currently test-version)
@@ -26,6 +27,9 @@ const SearchBox = () => {
 
   // Loading is enabled, when data is beeing fechted from API
   const [loading, setLoading] = useState(false);
+
+  // User is currently typing, or typed something in the searchbox
+  const [typing, setTyping] = useState(false);
 
   /**
    * Gets list of tours from API.
@@ -70,11 +74,8 @@ const SearchBox = () => {
         return;
       }
 
-      // Check request status
+      // Check for successful request
       if (rawResponse.status.toString() === "200") {
-        // Successful request
-        console.log("success");
-
         // Array of IDs retrieved via API request
         let dataIDs = [];
 
@@ -176,24 +177,33 @@ const SearchBox = () => {
           id="searchbox"
           value={tourQuery}
           placeholder="Tour hinzufügen ..."
-          onChange={(e) => setTourQuery(e.target.value)}
+          onChange={(e) => {
+            setTyping(true);
+            setTourQuery(e.target.value);
+          }}
         />
-        <div className="searchbox__clear-btn">
-          <span
-            onClick={(e) => {
-              setTourQuery("");
-              setCommittedSearch(false);
-            }}
-          >
-            X
-          </span>
-        </div>
+        {typing ? (
+          // Only show delete button if user entered something
+          <div className="searchbox__btn">
+            <span
+              onClick={(e) => {
+                setTourQuery("");
+                setTyping(false);
+                setCommittedSearch(false);
+              }}
+            >
+              <FontAwesomeIcon icon={faTrashAlt} />
+            </span>
+          </div>
+        ) : null}
         <button
           className="searchbox__btn"
           onClick={(e) => {
             handleSearch(e);
           }}
-        />
+        >
+          <FontAwesomeIcon icon={faSearch} />
+        </button>
       </form>
       {committedSearch && loading ? (
         // Search committed, but API still loading - display loading spinner
