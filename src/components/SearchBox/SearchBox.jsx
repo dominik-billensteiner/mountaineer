@@ -116,6 +116,9 @@ const SearchBox = () => {
       // If promised is resolved, body of response contains tours with all attributes
       const data = await rawResponse.json();
 
+      // Unset loading state
+      setLoading(false);
+
       // Proceed if response was successfull
       if (rawResponse.status.toString() === "200") {
         // Assign tour data (located in a subarray called "tour") to state variable searchResults
@@ -143,9 +146,6 @@ const SearchBox = () => {
 
     // Get list of search results
     getTourList(tourQuery);
-
-    // Unset loading state
-    setLoading(false);
   };
 
   /***
@@ -198,7 +198,7 @@ const SearchBox = () => {
         <div className="searchbox__results">
           <div className="searchbox__item-wrapper">
             <div className="searchbox__item">
-              <div className="lds-ring">
+              <div className="searchbox__spinner">
                 <div></div>
                 <div></div>
                 <div></div>
