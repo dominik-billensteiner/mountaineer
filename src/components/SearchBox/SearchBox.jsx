@@ -37,6 +37,32 @@ const SearchBox = () => {
   // User is currently typing, or typed something in the searchbox
   const [typing, setTyping] = useState(false);
 
+  // Displayed when in loading state
+  const loadingSpinnerBlock = (
+    <div className="searchbox__results">
+      <div className="searchbox__spinner">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  );
+
+  // Displayed if no results have been found
+  const noResultsFoundBlock = (
+    <div className="searchbox__item-wrapper">
+      <div
+        className="item"
+        onClick={(e) => {
+          handleTourSelection(e);
+        }}
+      >
+        <span>Keine Ergebnisse gefunden.</span>
+      </div>
+    </div>
+  );
+
   /**
    * Gets list of tours from API.
    *
@@ -183,6 +209,7 @@ const SearchBox = () => {
     }
   };
 
+  // Render
   return (
     <>
       <form className="searchbox">
@@ -220,67 +247,50 @@ const SearchBox = () => {
           <FontAwesomeIcon icon={faSearch} />
         </button>
       </form>
-      {committedSearch && loading ? (
-        // Search committed, but API still loading - display loading spinner
-        <div className="searchbox__results">
-          <div className="searchbox__spinner">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-        </div>
-      ) : null}
+      {committedSearch && loading
+        ? // Search committed, but API still loading - display loading spinner
+          loadingSpinnerBlock
+        : null}
       {committedSearch && !loading ? (
         // Search committed, loading finished
         <div className="searchbox__results">
-          {isEmptyArray(searchResults) ? (
-            // No search results have been found
-            <div className="searchbox__item-wrapper">
-              <div
-                className="searchbox__item"
-                onClick={(e) => {
-                  handleTourSelection(e);
-                }}
-              >
-                <span>Keine Ergebnisse gefunden.</span>
-              </div>
-            </div>
-          ) : (
-            // Display list of search results
-            searchResults.map((result) => {
-              return (
-                <div key={result.id} className="searchbox__item-wrapper">
-                  <div
-                    className="item"
-                    onClick={(e) => {
-                      handleTourSelection(e);
-                    }}
-                  >
-                    <p className="item__title">{result.title}</p>
-                    <span className="item__description-container">
-                      <div className="item__description">
-                        <FontAwesomeIcon icon={faArrowsAltH} />
-                        <span> {round(result.length / 1000, 1)} km</span>
-                      </div>
-                      <div className="item__description">
-                        <FontAwesomeIcon icon={faSortUp} />
-                        <span> {round(result.time.min / 60, 2)} h</span>
-                      </div>
-                      <div className="item__description">
-                        <FontAwesomeIcon icon={faSortUp} />
-                        <span> {result.elevation.ascent} hm</span>
-                      </div>
-                      <div className="item__description">
-                        <FontAwesomeIcon icon={faSortDown} />
-                        <span> {result.elevation.descent} hm</span>
-                      </div>
-                    </span>
+          {isEmptyArray(searchResults)
+            ? // No search results have been found
+              noResultsFoundBlock
+            : // Display list of search results
+              searchResults.map((result) => {
+                return (
+                  <div key={result.id} className="searchbox__item-wrapper">
+                    <div
+                      key={result.id}
+                      className="item"
+                      onClick={(e) => {
+                        handleTourSelection(e);
+                      }}
+                    >
+                      <p className="item__title">{result.title}</p>
+                      <span className="item__description-container">
+                        <div className="item__description">
+                          <FontAwesomeIcon icon={faArrowsAltH} />
+                          <span> {round(result.length / 1000, 1)} km</span>
+                        </div>
+                        <div className="item__description">
+                          <FontAwesomeIcon icon={faSortUp} />
+                          <span> {round(result.time.min / 60, 2)} h</span>
+                        </div>
+                        <div className="item__description">
+                          <FontAwesomeIcon icon={faSortUp} />
+                          <span> {result.elevation.ascent} hm</span>
+                        </div>
+                        <div className="item__description">
+                          <FontAwesomeIcon icon={faSortDown} />
+                          <span> {result.elevation.descent} hm</span>
+                        </div>
+                      </span>
+                    </div>
                   </div>
-                </div>
-              );
-            })
-          )}
+                );
+              })}
         </div>
       ) : null}
     </>
