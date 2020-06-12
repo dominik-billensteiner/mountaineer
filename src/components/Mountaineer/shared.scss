@@ -1,7 +1,8 @@
 /* Shared variables */
 
 // General components
-$header-height: 125px;
+$header-height: 75px;
+$box-padding: 12px;
 
 // Colors
 $primary-color: rgb(166, 179, 57); // Hex A6B339; davor rgb(0, 128, 255);
@@ -9,5 +10,28 @@ $primary-color-alpha: 0.8;
 $primary-color-rgba: rgba($primary-color, $primary-color-alpha);
 $grey-color: grey;
 
-// Searchbox
-$searchbox-padding: 12px;
+// Shared elements
+.text {
+  font-family: "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 300;
+  font-size: 1rem;
+}
+
+.heading {
+  font-family: "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 500;
+  font-size: 1.6rem;
+  padding: 12px 8px;
+}
+
+.app__box {
+  border: 2px solid $primary-color;
+  border-radius: 8px;
+  width: 100%;
+  padding: 8px $box-padding;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 -1px 0px rgba(0, 0, 0, 0.02);
+}

@@ -49,24 +49,28 @@ function Mountaineer() {
         <Bar list={tourList} setList={setTourList} />
       </div>
       <div className="app__content">
-        <div className="tourlist">
-          <h3>Meine Touren</h3>
-          {tourList.map((tour) => {
-            return (
-              <TourInfo
-                tour={{
-                  key: tour.id,
-                  elevation: tour.elevation,
-                  date: tour.date,
-                  title: tour.title,
-                  distance: tour.distance,
-                  duration: tour.duration,
-                  ascent: tour.ascent,
-                  descent: tour.descent,
-                }}
-              />
-            );
-          })}
+        <div className="app__box">
+          <h3 className="heading">Meine Touren</h3>
+          <div className="tours__list">
+            {tourList.map((tour) => {
+              return (
+                // Display all tours with propertys
+                <TourInfo
+                  tour={{
+                    key: tour.id,
+                    elevation: tour.elevation,
+                    date: tour.date,
+                    title: tour.title,
+                    distance: tour.distance,
+                    duration: tour.duration,
+                    ascent: tour.ascent,
+                    descent: tour.descent,
+                  }}
+                />
+                // Display control buttons
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>

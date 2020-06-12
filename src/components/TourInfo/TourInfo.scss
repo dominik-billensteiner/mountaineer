@@ -2,7 +2,7 @@
 
 .tour {
   display: block;
-  padding: 16px $searchbox-padding;
+  padding: 16px $box-padding;
   border-bottom: 1px $primary-color solid;
   overflow: hidden;
 
@@ -12,6 +12,7 @@
   }
 
   &__title {
+    padding: 8px 8px;
   }
   &__property-container {
     display: flex;

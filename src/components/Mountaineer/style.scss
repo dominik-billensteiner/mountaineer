@@ -22,12 +22,5 @@
   position: relative;
   display: block;
   margin-top: $header-height;
-}
-
-.text {
-  font-family: "Roboto", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-weight: 300;
-  font-size: 1em;
+  padding: 16px 16px;
 }

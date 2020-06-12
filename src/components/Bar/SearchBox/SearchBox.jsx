@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import TourInfo from "../TourInfo/TourInfo";
+import TourInfo from "../../TourInfo/TourInfo";
 import "./SearchBox.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
@@ -223,7 +223,7 @@ const SearchBox = ({ list, setList }) => {
   // Render
   return (
     <>
-      <form className="searchbox">
+      <form className="searchbox app__box">
         <input
           className="searchbox__input text"
           type="text"
