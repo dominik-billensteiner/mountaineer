@@ -48,13 +48,6 @@
     cursor: pointer;
   }
 
-  &__item-wrapper {
-    &:hover .item {
-      background-color: $primary-color;
-      color: white;
-    }
-  }
-
   &__spinner {
     display: inline-block;
     position: relative;
@@ -93,24 +86,5 @@
   }
   100% {
     transform: rotate(360deg);
-  }
-}
-
-.item {
-  display: block;
-  padding: 16px $searchbox-padding;
-  border-bottom: 1px $primary-color solid;
-  overflow: hidden;
-
-  &__title {
-  }
-  &__description-container {
-    display: flex;
-    flex-direction: row;
-    padding-top: 8px;
-  }
-  &__description {
-    flex: 0 0 25%;
-    font-size: 0.9rem;
   }
 }

@@ -21,21 +21,21 @@ const TourInfo = ({ tour }) => {
   // Render
   return (
     <div className="tour">
-      <p className="item__title">{tour.title}</p>
-      <span className="item__description-container">
-        <div className="item__description">
+      <p className="tour__title">{tour.title}</p>
+      <span className="tour__property-container">
+        <div className="tour__property">
           <FontAwesomeIcon icon={faArrowsAltH} />
           <span> {tour.distance} km</span>
         </div>
-        <div className="item__description">
+        <div className="tour__property">
           <FontAwesomeIcon icon={faSortUp} />
           <span> {tour.duration} h</span>
         </div>
-        <div className="item__description">
+        <div className="tour__property">
           <FontAwesomeIcon icon={faSortUp} />
           <span> {tour.ascent} hm</span>
         </div>
-        <div className="item__description">
+        <div className="tour__property">
           <FontAwesomeIcon icon={faSortDown} />
           <span> {tour.descent} hm</span>
         </div>

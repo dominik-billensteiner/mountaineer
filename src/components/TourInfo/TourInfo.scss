@@ -1,6 +1,31 @@
 @import "../Mountaineer/shared.scss";
 
 .tour {
+  display: block;
+  padding: 16px $searchbox-padding;
+  border-bottom: 1px $primary-color solid;
+  overflow: hidden;
+
+  &:hover {
+    background-color: $primary-color;
+    color: white;
+  }
+
+  &__title {
+  }
+  &__property-container {
+    display: flex;
+    flex-direction: row;
+    padding-top: 8px;
+  }
+  &__property {
+    flex: 0 0 25%;
+    font-size: 0.9rem;
+  }
+}
+
+/* Backup Layout
+.tour {
   display: flex;
   flex-direction: column;
   background-color: $primary-color-rgba;
@@ -49,4 +74,4 @@
     padding-top: 0.1rem;
     font-weight: 300;
   }
-}
+}*/
