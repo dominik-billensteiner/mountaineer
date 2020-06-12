@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import "./Tour.scss";
 
 const Tour = ({
-  mountain,
+  title,
   elevation,
   description,
   date,
@@ -17,7 +17,7 @@ const Tour = ({
       <div className="tour__container">
         <div className="tour__mountainer-container">
           <h2 className="tour__mountain">
-            {mountain}, {elevation} m
+            {title}, {elevation} m
           </h2>
           <h3 className="tour__date">{date}</h3>
         </div>
@@ -35,12 +35,12 @@ const Tour = ({
 
 Tour.propTypes = {
   mountain: PropTypes.string,
-  elevation: PropTypes.string,
+  elevation: PropTypes.number,
   date: PropTypes.string,
-  distance: PropTypes.string,
-  duration: PropTypes.string,
-  ascent: PropTypes.string,
-  descent: PropTypes.string,
+  distance: PropTypes.number,
+  duration: PropTypes.number,
+  ascent: PropTypes.number,
+  descent: PropTypes.number,
 };
 
 export default Tour;

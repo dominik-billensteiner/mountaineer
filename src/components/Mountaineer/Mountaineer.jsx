@@ -17,12 +17,11 @@ function Mountaineer() {
   const [tourList, setTourList] = useState([
     {
       id: null,
-      mountain: "",
+      title: "",
       elevation: null,
       date: "",
-      description: "",
       distance: null,
-      duration: "",
+      duration: null,
       ascent: null,
       descent: null,
     },
@@ -33,14 +32,13 @@ function Mountaineer() {
     setTourList([
       {
         id: 0,
-        mountain: "Schoberstein",
-        elevation: "1286",
+        title: "Schoberstein",
+        elevation: 1286,
         date: "20.06.2020",
-        description: "Südanstieg Molln",
-        distance: "12",
-        duration: "12",
-        ascent: "12",
-        descent: "12",
+        distance: 12,
+        duration: 2,
+        ascent: 12,
+        descent: 12,
       },
     ]);
   }, []);
@@ -51,21 +49,22 @@ function Mountaineer() {
         <Bar list={tourList} setList={setTourList} />
       </div>
       <div className="app__content">
-        {tourList.map((tour) => {
-          return (
-            <Tour
-              key={tour.id}
-              mountain={tour.mountain}
-              elevation={tour.elevation}
-              date={tour.date}
-              description={tour.description}
-              distance={tour.distance}
-              duration={tour.duration}
-              ascent={tour.ascent}
-              descent={tour.descent}
-            />
-          );
-        })}
+        <div className="tourlist">
+          {tourList.map((tour) => {
+            return (
+              <Tour
+                key={tour.id}
+                elevation={tour.elevation}
+                date={tour.date}
+                title={tour.title}
+                distance={tour.distance}
+                duration={tour.duration}
+                ascent={tour.ascent}
+                descent={tour.descent}
+              />
+            );
+          })}
+        </div>
       </div>
     </div>
   );

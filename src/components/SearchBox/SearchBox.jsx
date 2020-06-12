@@ -83,7 +83,10 @@ const SearchBox = ({ list, setList }) => {
     try {
       // Full text search (POIs and tours) on outdooractive API returns an id list
       const rawResponse = await fetch(
+        // With categories
         `http://www.outdooractive.com/api/search/?q=${query}&category=${API_CAT_HIKING},${API_CAT_MOUNTAINEERING}&key=${API_KEY}&project=${API_PROJECT}&lang=${API_LANGUAGE}`,
+        // Without categories
+        //`http://www.outdooractive.com/api/search/?q=${query}&key=${API_KEY}&project=${API_PROJECT}&lang=${API_LANGUAGE}`,
         {
           method: "GET",
           mode: "cors",
@@ -187,23 +190,21 @@ const SearchBox = ({ list, setList }) => {
   /***
    * Handles tour selection.
    */
-  const handleTourSelection = (id) => {
+  const handleTourSelection = (tour) => {
     setCommittedSearch(false);
     setList([
       ...list,
       {
-        id: 2,
-        mountain: "Schoberstein",
-        elevation: "1286",
-        date: "20.06.2020",
-        description: "Südanstieg Molln",
-        distance: "12",
-        duration: "12",
-        ascent: "12",
-        descent: "12",
+        id: tour.id,
+        title: tour.title,
+        elevation: tour.elevation.maxAltitude,
+        date: new Date().toLocaleString(),
+        distance: round(tour.length / 1000, 1),
+        duration: round(tour.time.min / 60, 2),
+        ascent: tour.elevation.ascent,
+        descent: tour.elevation.descent,
       },
     ]);
-    console.log(id);
   };
 
   /***
@@ -262,51 +263,53 @@ const SearchBox = ({ list, setList }) => {
           <FontAwesomeIcon icon={faSearch} />
         </button>
       </form>
-      {committedSearch && loading
-        ? // Search committed, but API still loading - display loading spinner
-          loadingSpinnerBlock
-        : null}
-      {committedSearch && !loading ? (
+      {
+        // Search committed, but API still loading - display loading spinner
+        committedSearch && loading && loadingSpinnerBlock
+      }
+      {
         // Search committed, loading finished
-        <div className="searchbox__results">
-          {isEmptyArray(searchResults)
-            ? // No search results have been found
-              noResultsFoundBlock
-            : // Display list of search results
-              searchResults.map((result) => {
-                return (
-                  <div key={result.id} className="searchbox__item-wrapper">
-                    <div
-                      className="item"
-                      onClick={(e) => {
-                        handleTourSelection(result.id);
-                      }}
-                    >
-                      <p className="item__title">{result.title}</p>
-                      <span className="item__description-container">
-                        <div className="item__description">
-                          <FontAwesomeIcon icon={faArrowsAltH} />
-                          <span> {round(result.length / 1000, 1)} km</span>
-                        </div>
-                        <div className="item__description">
-                          <FontAwesomeIcon icon={faSortUp} />
-                          <span> {round(result.time.min / 60, 2)} h</span>
-                        </div>
-                        <div className="item__description">
-                          <FontAwesomeIcon icon={faSortUp} />
-                          <span> {result.elevation.ascent} hm</span>
-                        </div>
-                        <div className="item__description">
-                          <FontAwesomeIcon icon={faSortDown} />
-                          <span> {result.elevation.descent} hm</span>
-                        </div>
-                      </span>
+        committedSearch && !loading && (
+          <div className="searchbox__results">
+            {isEmptyArray(searchResults)
+              ? // No search results have been found
+                noResultsFoundBlock
+              : // Display list of search results
+                searchResults.map((result) => {
+                  return (
+                    <div key={result.id} className="searchbox__item-wrapper">
+                      <div
+                        className="item"
+                        onClick={(e) => {
+                          handleTourSelection(result);
+                        }}
+                      >
+                        <p className="item__title">{result.title}</p>
+                        <span className="item__description-container">
+                          <div className="item__description">
+                            <FontAwesomeIcon icon={faArrowsAltH} />
+                            <span> {round(result.length / 1000, 1)} km</span>
+                          </div>
+                          <div className="item__description">
+                            <FontAwesomeIcon icon={faSortUp} />
+                            <span> {round(result.time.min / 60, 2)} h</span>
+                          </div>
+                          <div className="item__description">
+                            <FontAwesomeIcon icon={faSortUp} />
+                            <span> {result.elevation.ascent} hm</span>
+                          </div>
+                          <div className="item__description">
+                            <FontAwesomeIcon icon={faSortDown} />
+                            <span> {result.elevation.descent} hm</span>
+                          </div>
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
-        </div>
-      ) : null}
+                  );
+                })}
+          </div>
+        )
+      }
     </>
   );
 };
