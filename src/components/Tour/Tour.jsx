@@ -35,6 +35,7 @@ const Tour = ({
 
 Tour.propTypes = {
   mountain: PropTypes.string,
+  elevation: PropTypes.string,
   date: PropTypes.string,
   distance: PropTypes.string,
   duration: PropTypes.string,

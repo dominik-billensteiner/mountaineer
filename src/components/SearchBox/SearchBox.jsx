@@ -21,7 +21,7 @@ const API_LANGUAGE = "de"; // Language code
  * Search results are entered in a searchbox and displayed in a dropdown list.
  * On selection of a item the add tour display is shown.
  */
-const SearchBox = () => {
+const SearchBox = ({ list, setList }) => {
   // Search query to add a tour (Userinput)
   const [tourQuery, setTourQuery] = useState("");
 
@@ -189,6 +189,20 @@ const SearchBox = () => {
    */
   const handleTourSelection = (id) => {
     setCommittedSearch(false);
+    setList([
+      ...list,
+      {
+        id: 2,
+        mountain: "Schoberstein",
+        elevation: "1286",
+        date: "20.06.2020",
+        description: "Südanstieg Molln",
+        distance: "12",
+        duration: "12",
+        ascent: "12",
+        descent: "12",
+      },
+    ]);
     console.log(id);
   };
 

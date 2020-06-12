@@ -2,10 +2,10 @@ import React from "react";
 import SearchBox from "../SearchBox/SearchBox";
 import "./Bar.scss";
 
-const Bar = () => {
+const Bar = ({ list, setList }) => {
   return (
     <div className="bar">
-      <SearchBox />
+      <SearchBox list={list} setList={setList} />
     </div>
   );
 };

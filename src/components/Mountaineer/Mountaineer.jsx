@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Tour from "../Tour/Tour";
 import Bar from "../Bar/Bar";
 import "./style.scss";
@@ -16,26 +16,45 @@ function Mountaineer() {
   // List of tours
   const [tourList, setTourList] = useState([
     {
-      id: 12456,
-      mountain: "Schoberstein",
-      elevation: 1285,
-      date: "29.04.2020",
-      description: "Südanstieg Molln",
-      distance: 9,
-      duration: "3:15",
-      ascent: 880,
-      descent: 870,
+      id: null,
+      mountain: "",
+      elevation: null,
+      date: "",
+      description: "",
+      distance: null,
+      duration: "",
+      ascent: null,
+      descent: null,
     },
   ]);
+
+  // Load list of tours onComponentDidMount
+  useEffect(() => {
+    setTourList([
+      {
+        id: 0,
+        mountain: "Schoberstein",
+        elevation: "1286",
+        date: "20.06.2020",
+        description: "Südanstieg Molln",
+        distance: "12",
+        duration: "12",
+        ascent: "12",
+        descent: "12",
+      },
+    ]);
+  }, []);
+
   return (
     <div className="app">
       <div className="app__header">
-        <Bar />
+        <Bar list={tourList} setList={setTourList} />
       </div>
       <div className="app__content">
         {tourList.map((tour) => {
           return (
             <Tour
+              key={tour.id}
               mountain={tour.mountain}
               elevation={tour.elevation}
               date={tour.date}
