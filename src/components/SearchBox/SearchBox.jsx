@@ -1,13 +1,8 @@
 import React, { useState } from "react";
+import TourInfo from "../TourInfo/TourInfo";
 import "./SearchBox.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faSearch,
-  faTrashAlt,
-  faArrowsAltH,
-  faSortUp,
-  faSortDown,
-} from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 // Constants for outdooractive API data
 const API_KEY = "yourtest-outdoora-ctiveapi"; // API key (currently test-version)
@@ -277,33 +272,25 @@ const SearchBox = ({ list, setList }) => {
               : // Display list of search results
                 searchResults.map((result) => {
                   return (
-                    <div key={result.id} className="searchbox__item-wrapper">
-                      <div
-                        className="item"
-                        onClick={(e) => {
-                          handleTourSelection(result);
+                    <div
+                      key={result.id}
+                      className="searchbox__item-wrapper"
+                      onClick={(e) => {
+                        handleTourSelection(result);
+                      }}
+                    >
+                      <TourInfo
+                        tour={{
+                          id: result.id,
+                          title: result.title,
+                          elevation: result.elevation.maxAltitude,
+                          date: new Date().toLocaleString(),
+                          distance: round(result.length / 1000, 1),
+                          duration: round(result.time.min / 60, 2),
+                          ascent: result.elevation.ascent,
+                          descent: result.elevation.descent,
                         }}
-                      >
-                        <p className="item__title">{result.title}</p>
-                        <span className="item__description-container">
-                          <div className="item__description">
-                            <FontAwesomeIcon icon={faArrowsAltH} />
-                            <span> {round(result.length / 1000, 1)} km</span>
-                          </div>
-                          <div className="item__description">
-                            <FontAwesomeIcon icon={faSortUp} />
-                            <span> {round(result.time.min / 60, 2)} h</span>
-                          </div>
-                          <div className="item__description">
-                            <FontAwesomeIcon icon={faSortUp} />
-                            <span> {result.elevation.ascent} hm</span>
-                          </div>
-                          <div className="item__description">
-                            <FontAwesomeIcon icon={faSortDown} />
-                            <span> {result.elevation.descent} hm</span>
-                          </div>
-                        </span>
-                      </div>
+                      />
                     </div>
                   );
                 })}

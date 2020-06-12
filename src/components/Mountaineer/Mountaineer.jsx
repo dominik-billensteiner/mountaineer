@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Tour from "../Tour/Tour";
+import TourInfo from "../TourInfo/TourInfo";
 import Bar from "../Bar/Bar";
 import "./style.scss";
 
@@ -50,17 +50,20 @@ function Mountaineer() {
       </div>
       <div className="app__content">
         <div className="tourlist">
+          <h3>Meine Touren</h3>
           {tourList.map((tour) => {
             return (
-              <Tour
-                key={tour.id}
-                elevation={tour.elevation}
-                date={tour.date}
-                title={tour.title}
-                distance={tour.distance}
-                duration={tour.duration}
-                ascent={tour.ascent}
-                descent={tour.descent}
+              <TourInfo
+                tour={{
+                  key: tour.id,
+                  elevation: tour.elevation,
+                  date: tour.date,
+                  title: tour.title,
+                  distance: tour.distance,
+                  duration: tour.duration,
+                  ascent: tour.ascent,
+                  descent: tour.descent,
+                }}
               />
             );
           })}
