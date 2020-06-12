@@ -223,7 +223,7 @@ const SearchBox = ({ list, setList }) => {
   // Render
   return (
     <>
-      <form className="searchbox app__box">
+      <form className="searchbox">
         <input
           className="searchbox__input text"
           type="text"

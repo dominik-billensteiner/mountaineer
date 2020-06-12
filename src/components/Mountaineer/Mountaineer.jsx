@@ -27,6 +27,9 @@ function Mountaineer() {
     },
   ]);
 
+  // Statistics from all tours
+  const [stats, setStats] = useState([]);
+
   // Load list of tours onComponentDidMount
   useEffect(() => {
     setTourList([
@@ -41,7 +44,37 @@ function Mountaineer() {
         descent: 12,
       },
     ]);
+    console.log("UseEffect tourList: first time update Statistics");
+    setStats(calculateStats);
   }, []);
+
+  // Whenever tour list changes, update statistics
+  useEffect(() => {
+    console.log("UseEffect tourList: update Statistics");
+    setStats(calculateStats);
+  }, [tourList]);
+
+  /***
+   * Calculate statistics.
+   * @return {Object} - Statistics object with total distance, ascent and descent.
+   */
+  const calculateStats = () => {
+    let totalDistance = 0;
+    let totalAscent = 0;
+    let totalDescent = 0;
+    console.log(tourList);
+
+    tourList.map((tour) => {
+      totalDistance += tour.distance;
+      totalAscent += tour.ascent;
+      totalDescent += tour.descent;
+    });
+    return {
+      distance: totalDistance,
+      ascent: totalAscent,
+      descent: totalDescent,
+    };
+  };
 
   return (
     <div className="app">
@@ -50,14 +83,30 @@ function Mountaineer() {
       </div>
       <div className="app__content">
         <div className="app__box">
+          <h3 className="heading">Meine Statistik</h3>
+          <TourInfo
+            tour={{
+              id: 0,
+              elevation: 0,
+              date: null,
+              title: "",
+              distance: stats.distance,
+              duration: 0,
+              ascent: stats.ascent,
+              descent: stats.descent,
+            }}
+          />
+        </div>
+        <div className="app__box">
           <h3 className="heading">Meine Touren</h3>
           <div className="tours__list">
             {tourList.map((tour) => {
               return (
                 // Display all tours with propertys
                 <TourInfo
+                  key={tour.id}
                   tour={{
-                    key: tour.id,
+                    id: tour.id,
                     elevation: tour.elevation,
                     date: tour.date,
                     title: tour.title,
