@@ -187,8 +187,9 @@ const SearchBox = () => {
   /***
    * Handles tour selection.
    */
-  const handleTourSelection = (e) => {
+  const handleTourSelection = (id) => {
     setCommittedSearch(false);
+    console.log(id);
   };
 
   /***
@@ -262,10 +263,9 @@ const SearchBox = () => {
                 return (
                   <div key={result.id} className="searchbox__item-wrapper">
                     <div
-                      key={result.id}
                       className="item"
                       onClick={(e) => {
-                        handleTourSelection(e);
+                        handleTourSelection(result.id);
                       }}
                     >
                       <p className="item__title">{result.title}</p>
